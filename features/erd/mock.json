@@ -1,0 +1,32 @@
+{
+    "tables": [
+      {
+        "name": "users",
+        "columns": [
+          { "name": "id", "type": "integer" },
+          { "name": "username", "type": "varchar" },
+          { "name": "email", "type": "varchar" },
+          { "name": "created_at", "type": "timestamp" }
+        ]
+      },
+      {
+        "name": "posts",
+        "columns": [
+          { "name": "id", "type": "integer" },
+          { "name": "user_id", "type": "integer" },
+          { "name": "title", "type": "varchar" },
+          { "name": "content", "type": "text" },
+          { "name": "created_at", "type": "timestamp" }
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "table": "posts",
+        "column": "user_id",
+        "foreignTable": "users",
+        "foreignColumn": "id"
+      }
+    ]
+  }
+  
