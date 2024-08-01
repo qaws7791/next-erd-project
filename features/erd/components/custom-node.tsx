@@ -1,7 +1,7 @@
 import { TableColumn } from "@/features/erd/types";
-import { Handle, Position } from "@xyflow/react";
+import { Handle, NodeProps, Position } from "@xyflow/react";
 
-interface CustomNodeProps {
+interface CustomNodeProps extends NodeProps {
   data: {
     label: string;
     columns: TableColumn[];
@@ -11,36 +11,34 @@ interface CustomNodeProps {
 export default function CustomNode({ data }: CustomNodeProps) {
   return (
     <div
-      className="
-      bg-white
+      className="bg-white
       border
       border-gray-200
       rounded-md
       p-2
       w-72
-      shadow-md
-    "
+      shadow-md"
     >
-      <strong>{data.label}</strong>
-      <hr />
-      <div className="space-y-2">
-        {data.columns.map((column) => (
-          <div key={column.name}>
-            <strong className="mr-2">{column.name}</strong>
-            <span>{column.type}</span>
+      <div className="font-bold mb-3">{data.label}</div>
+      {data.columns.map((col, index) => {
+        return (
+          <div key={index} className="flex justify-between relative px-2">
+            <span>{col.name}</span>
+            <Handle
+              type="source"
+              position={Position.Right}
+              id={`${data.label}-${col.name}`}
+              className={`bg-neutral-400 rounded-full shadow-md w-4 h-4 top-1/2 translate-x-full -translate-y-1/2`}
+            />
+            <Handle
+              type="target"
+              position={Position.Left}
+              id={`${data.label}-${col.name}`}
+              className="bg-neutral-400 rounded-full shadow-md w-4 h-4 top-1/2 -translate-x-full -translate-y-1/2"
+            />
           </div>
-        ))}
-      </div>
-      <Handle
-        type="source"
-        position={Position.Right}
-        className="bg-white rounded-full shadow-md w-4 h-4"
-      />
-      <Handle
-        type="target"
-        position={Position.Left}
-        className="bg-white rounded-full shadow-md w-4 h-4"
-      />
+        );
+      })}
     </div>
   );
 }
