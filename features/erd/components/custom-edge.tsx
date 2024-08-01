@@ -14,8 +14,9 @@ export default function CustomEdge({
   targetY,
   sourcePosition,
   targetPosition,
-  data,
   label,
+  markerEnd,
+  markerStart,
 }: EdgeProps<Edge<{ label: string }>>) {
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
@@ -28,10 +29,15 @@ export default function CustomEdge({
 
   return (
     <>
-      <BaseEdge id={id} path={edgePath} />
+      <BaseEdge
+        id={id}
+        path={edgePath}
+        markerStart={markerStart}
+        markerEnd={markerEnd}
+      />
       <EdgeLabelRenderer>
         <div
-          className="absolute bg-yellow-400 p-2 rounded-md text-sm font-bold shadow-md"
+          className="absolute bg-white p-2 rounded-md text-sm font-bold shadow-md"
           style={{
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
           }}
