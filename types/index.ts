@@ -8,3 +8,13 @@ export type SessionPayload = {
   userId: string;
   expiresAt: Date;
 };
+
+export type Recommendation = {
+  title: string;
+  description: string;
+  recommendations: {
+    coffeeName: string;
+    coffeeDescription: string;
+    keywords: string[];
+  }[];
+};

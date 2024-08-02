@@ -1,6 +1,6 @@
 import { connectDB } from "@/db/mongodb";
 import { verifySession } from "@/lib/session";
-import User from "@/db/models/user";
+import User, { UserDocument } from "@/db/models/user";
 import { cache } from "react";
 
 export const getUser = cache(async () => {
@@ -13,7 +13,7 @@ export const getUser = cache(async () => {
       _id: session.userId,
     });
 
-    return user;
+    return user as UserDocument;
   } catch (error) {
     console.error(error);
     return null;

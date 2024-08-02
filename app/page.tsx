@@ -3,6 +3,8 @@ import LogoutButton from "@/features/auth/components/logout-button";
 import { title } from "@/components/primitives";
 import { getUser } from "@/lib/user";
 import { Avatar } from "@nextui-org/avatar";
+import ChatForm from "@/app/chat-form";
+import { createChat } from "@/lib/actions";
 export default async function Home() {
   const user = await getUser();
 
@@ -14,10 +16,11 @@ export default async function Home() {
         <h1 className={title()}>Your Google Account</h1>
       </div>
       {user ? (
-        <div className="flex items-center flex-col gap-8">
+        <div className="flex items-center flex-col gap-8 w-full p-4">
           <h2 className={title({ size: "sm" })}>{user.email}</h2>
           <Avatar src={user.photo} className="w-20 h-20" />
           <LogoutButton />
+          <ChatForm action={createChat} />
         </div>
       ) : (
         <GoogleLoginButton />
