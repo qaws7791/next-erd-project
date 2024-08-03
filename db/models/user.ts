@@ -1,8 +1,8 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 
 // user schema for multiple providers
-export interface UserDocument {
-  _id: string;
+export interface UserDocument extends Document {
+  _id: Types.ObjectId;
   email: string;
   googleId: string;
   name: string;
