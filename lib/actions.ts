@@ -31,7 +31,7 @@ export async function createChat(
     title: result.title,
     description: result.description,
     recommendations: result.recommendations,
-    userId: user._id,
+    author: user._id,
   });
   await recommendation.save();
 
