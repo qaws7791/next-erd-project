@@ -1,61 +1,29 @@
 "use client";
+import { createChat } from "@/lib/actions";
 import { Recommendation } from "@/types";
-import { ChatFormState } from "@/types/form-state";
 import { Button } from "@nextui-org/button";
 import { Chip } from "@nextui-org/chip";
 import { Input } from "@nextui-org/input";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
-interface ChatFormProps {
-  action: (state: ChatFormState, formData: FormData) => Promise<ChatFormState>;
-}
+interface ChatFormProps {}
 
-const MOCK_RECOMMENDATION: Recommendation = {
-  title: "최신 커피 5종 추천",
-  description:
-    "최근 트렌드를 반영한 다섯 가지 커피를 소개합니다. 새로운 맛과 향을 경험해보세요!",
-  recommendations: [
-    {
-      coffeeName: "달고나 커피",
-      coffeeDescription:
-        "달콤한 설탕과 커피의 조화가 일품인 커피로, 최근 틱톡에서 큰 인기를 얻고 있습니다. 집에서도 쉽게 만들 수 있다는 장점이 있습니다.",
-      keywords: ["달콤", "크리미", "틱톡", "인기"],
-    },
-    {
-      coffeeName: "콜드 브루",
-      coffeeDescription:
-        "차갑게 우려낸 커피로, 부드럽고 깔끔한 맛이 특징입니다. 진하고 풍부한 향을 즐기기에 좋습니다.",
-      keywords: ["차갑게", "부드러운", "깔끔한", "진하고"],
-    },
-    {
-      coffeeName: "nitro 커피",
-      coffeeDescription:
-        "질소를 주입하여 부드러운 거품을 형성한 커피로, 부드러운 크림과 커피의 조화가 매력적입니다.",
-      keywords: ["질소", "거품", "부드러운", "크림"],
-    },
-    {
-      coffeeName: "에스프레소 토닉",
-      coffeeDescription:
-        "에스프레소와 토닉워터를 섞어 마시는 커피로, 상큼하고 쌉쌀한 맛이 특징입니다.",
-      keywords: ["에스프레소", "토닉워터", "상큼한", "쌉쌀한", "맛"],
-    },
-    {
-      coffeeName: "플랫 화이트",
-      coffeeDescription:
-        "에스프레소에 스팀 우유를 넣어 만든 커피로, 부드럽고 고소한 맛이 일품입니다.",
-      keywords: ["에스프레소", "스팀 우유", "부드러운", "고소한"],
-    },
-  ],
-};
+export default function ChatForm(props: ChatFormProps) {
+  const [state, formAction] = useFormState(createChat, undefined);
+  const queryClient = useQueryClient();
 
-export default function ChatForm({ action }: ChatFormProps) {
-  const [state, formAction] = useFormState(action, undefined);
-  console.log("state", state);
+  useEffect(() => {
+    if (state?.result) {
+      queryClient.invalidateQueries({
+        queryKey: ["recommendations"],
+      });
+    }
+  }, [state?.result, queryClient]);
+
   return (
-    <form
-      action={formAction}
-      className="flex flex-col gap-4 max-w-screen-md w-full"
-    >
+    <form action={formAction} className="flex flex-col gap-4 w-full">
       {/* <RecommendationView {...MOCK_RECOMMENDATION} /> */}
       {state?.result && <RecommendationView {...state.result} />}
       <div className="flex gap-4">
