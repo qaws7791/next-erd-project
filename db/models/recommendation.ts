@@ -1,15 +1,15 @@
 import { Recommendation as RecommendationType } from "@/types";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 
 // user schema for multiple providers
-export interface RecommendationDocument {
-  _id: string;
+export interface RecommendationDocument extends Document {
+  _id: Types.ObjectId;
   title: string;
   description: string;
   recommendations: RecommendationType["recommendations"];
   createdAt: Date;
   updatedAt: Date;
-  userId: string;
+  author: Types.ObjectId;
 }
 
 const RecommendationSchema = new Schema<RecommendationDocument>(
@@ -41,8 +41,9 @@ const RecommendationSchema = new Schema<RecommendationDocument>(
       ],
       required: true,
     },
-    userId: {
-      type: String,
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
   },
