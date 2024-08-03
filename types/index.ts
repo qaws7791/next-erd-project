@@ -1,3 +1,5 @@
+import { RecommendationDocument } from "@/db/models/recommendation";
+import { UserDocument } from "@/db/models/user";
 import { SVGProps } from "react";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
@@ -17,4 +19,8 @@ export type Recommendation = {
     coffeeDescription: string;
     keywords: string[];
   }[];
+};
+
+export type RecommendationWithAuthor = RecommendationDocument & {
+  author: UserDocument;
 };
