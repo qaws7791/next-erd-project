@@ -31,13 +31,9 @@ export default function RecommendationList() {
       return lastPage[lastPage.length - 1]?._id.toString() || undefined;
     },
   });
-  useEffect(() => {
-    console.log("isInView", isInView);
-  }, [isInView]);
 
   useEffect(() => {
     if (isInView && !query.isFetchingNextPage && query.hasNextPage) {
-      console.log("fetchNextPage");
       query.fetchNextPage();
     }
   }, [isInView, query]);
