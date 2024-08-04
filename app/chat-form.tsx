@@ -24,8 +24,6 @@ export default function ChatForm(props: ChatFormProps) {
 
   return (
     <form action={formAction} className="flex flex-col gap-4 w-full">
-      {/* <RecommendationView {...MOCK_RECOMMENDATION} /> */}
-      {state?.result && <RecommendationView {...state.result} />}
       <div className="flex gap-4">
         <Input
           placeholder="Type a message"
@@ -52,41 +50,5 @@ function FormSubmitButton() {
     >
       {pending ? "추천 중" : "추천 받기"}
     </Button>
-  );
-}
-
-function RecommendationView({
-  recommendations,
-  title,
-  description,
-}: Recommendation) {
-  return (
-    <div className="border rounded-3xl p-4">
-      <h2 className="text-xl font-semibold">{title}</h2>
-      <p className="mt-4">{description}</p>
-      <ul className="flex gap-4 flex-col mt-8">
-        {recommendations.map((recommendation, i) => (
-          <li key={i} className="p-4 border rounded-xl">
-            <div>
-              <h3 className="font-bold">
-                {i + 1}. {recommendation.coffeeName}
-              </h3>
-            </div>
-            <div>
-              <p className="text-default-600">
-                {recommendation.coffeeDescription}
-              </p>
-              <div className="flex gap-2 mt-3 items-center">
-                {recommendation.keywords.map((keyword, i) => (
-                  <Chip key={i} color="default">
-                    {keyword}
-                  </Chip>
-                ))}
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
