@@ -35,12 +35,5 @@ export async function createChat(
   });
   await recommendation.save();
 
-  console.log("title", result.title);
-  console.log("description", result.description);
-  result.recommendations.forEach((recommendation) => {
-    console.log("coffee: ", recommendation.coffeeName);
-    console.log("description: ", recommendation.coffeeDescription);
-    console.log("keywords: ", recommendation.keywords.join(", "));
-  });
   return { result };
 }
