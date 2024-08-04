@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { Noto_Sans_KR } from "next/font/google";
+import CommonNavbar from "@/components/commom-navbar";
 
 const notoSans = Noto_Sans_KR({
   subsets: ["latin"],
@@ -43,7 +44,10 @@ export default function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">{children}</div>
+          <div className="relative flex flex-col h-screen">
+            <CommonNavbar />
+            {children}
+          </div>
         </Providers>
       </body>
     </html>
