@@ -16,5 +16,7 @@ export default function GoogleLoginButton() {
     renderGoogleLoginButton(loginRef);
   }, [renderGoogleLoginButton]);
 
-  return <div id="signInDiv" ref={loginRef} />;
+  return (
+    <div id="signInDiv" ref={loginRef} className="p-4 bg-white rounded-lg" />
+  );
 }
